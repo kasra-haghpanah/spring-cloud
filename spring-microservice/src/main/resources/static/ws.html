@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>websocket</title>
+</head>
+<body>
+
+<script type="text/javascript">
+    window.addEventListener("load", () => {
+        var textInput = document.getElementById("text");
+        var textarea = document.getElementById("textarea");
+        var sendButton = document.getElementById("send");
+
+        var url = `ws://${location.origin.substring(location.origin.indexOf("//") + 2)}/websocket`;
+
+        //url = 'ws://localhost:9999/websocket';
+        const ws = new WebSocket(url);
+        ws.addEventListener("message", (m) => {
+            var data = m.data;
+            if (data !== null && typeof data === 'object' && !Array.isArray(data)) {
+                data = JSON.stringify(m.data);
+            }
+            var div = document.createElement("div");
+            div.innerText = data;
+            textarea.appendChild(div);
+            textarea.scrollTop = textarea.scrollHeight;
+
+        });
+
+        ws.addEventListener("open", () => {
+            console.log("open");
+            ws.send("salam");
+        });
+
+        ws.addEventListener("error", (error) => {
+            console.log("error");
+            console.log(error);
+        });
+
+        ws.addEventListener("close", (close) => {
+            console.log("close");
+            console.log(close);
+        });
+
+        sendButton.addEventListener("click", () => {
+            ws.send(textInput.value);
+        });
+    });
+</script>
+
+<div>
+    <input type="text" id="text"/>
+    <input type="button" id="send" value="send">
+    <br/>
+    <div id="textarea" style="width: 400px;height: 200px;overflow-y: scroll;overflow-x: scroll;"></div>
+</div>
+
+</body>
+</html>
