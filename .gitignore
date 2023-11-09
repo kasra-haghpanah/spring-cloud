@@ -1,1 +1,4 @@
 /.idea/
+/spring-reactive-microservice/target/
+/spring-service-discovery/target/
+/spring-cloud-gateway/target/
