@@ -18,7 +18,7 @@
     <modules>
         <module>spring-service-discovery</module>
         <module>spring-cloud-gateway</module>
-        <module>spring-microservice</module>
+        <module>spring-reactive-microservice</module>
     </modules>
 
     <properties>
